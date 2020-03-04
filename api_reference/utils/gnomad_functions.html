@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.utils.gnomad_functions &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gnomad.utils.ld" href="ld.html" />
+    <link rel="prev" title="gnomad.utils.generic" href="generic.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../resources/index.html">resources</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">utils</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="annotations.html">annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants.html">constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generic.html">generic</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">gnomad_functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ld.html">ld</a></li>
+<li class="toctree-l3"><a class="reference internal" href="liftover.html">liftover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html">plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="relatedness.html">relatedness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rf.html">rf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_qc.html">sample_qc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slack.html">slack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sparse_mt.html">sparse_mt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variant_qc.html">variant_qc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">gnomad</a> &raquo;</li>
+        
+          <li><a href="index.html">gnomad.utils</a> &raquo;</li>
+        
+      <li>gnomad.utils.gnomad_functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_reference/utils/gnomad_functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gnomad-utils-gnomad-functions">
+<h1>gnomad.utils.gnomad_functions<a class="headerlink" href="#gnomad-utils-gnomad-functions" title="Permalink to this headline">¶</a></h1>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.filter_to_adj" title="gnomad.utils.gnomad_functions.filter_to_adj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.filter_to_adj</span></code></a>(mt)</p></td>
+<td><p>Filter genotypes to adj criteria</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.get_adj_expr" title="gnomad.utils.gnomad_functions.get_adj_expr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.get_adj_expr</span></code></a>(…)</p></td>
+<td><p>Gets adj genotype annotation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.annotate_adj" title="gnomad.utils.gnomad_functions.annotate_adj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.annotate_adj</span></code></a>(mt)</p></td>
+<td><p>Annotate genotypes with adj criteria (assumes diploid) Defaults correspond to gnomAD values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.add_variant_type" title="gnomad.utils.gnomad_functions.add_variant_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.add_variant_type</span></code></a>(…)</p></td>
+<td><p>Get Struct of variant_type and n_alt_alleles from ArrayExpression of Strings (all alleles)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.adjusted_sex_ploidy_expr" title="gnomad.utils.gnomad_functions.adjusted_sex_ploidy_expr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.adjusted_sex_ploidy_expr</span></code></a>(…)</p></td>
+<td><p>Creates an entry expression to convert males to haploid on non-PAR X/Y and females to missing on Y</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.adjust_sex_ploidy" title="gnomad.utils.gnomad_functions.adjust_sex_ploidy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.adjust_sex_ploidy</span></code></a>(mt, …)</p></td>
+<td><p>Converts males to haploid on non-PAR X/Y, sets females to missing on Y</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.read_list_data" title="gnomad.utils.gnomad_functions.read_list_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.read_list_data</span></code></a>(…)</p></td>
+<td><p>Reads a file input into a python list (each line will be an element).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.liftover_using_gnomad_map" title="gnomad.utils.gnomad_functions.liftover_using_gnomad_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.liftover_using_gnomad_map</span></code></a>(ht, …)</p></td>
+<td><p>Liftover a gnomAD table using already-established liftover file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.filter_by_frequency" title="gnomad.utils.gnomad_functions.filter_by_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.filter_by_frequency</span></code></a>(t, …)</p></td>
+<td><p>Filter MatrixTable or Table with gnomAD-format frequency data (assumed bi-allelic/split) (i.e.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.pretty_print_runs" title="gnomad.utils.gnomad_functions.pretty_print_runs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.pretty_print_runs</span></code></a>(runs)</p></td>
+<td><p>Prints the information for the RF runs loaded from the json file storing the RF run hashes -&gt; info</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.gnomad_functions.add_rank" title="gnomad.utils.gnomad_functions.add_rank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.gnomad_functions.add_rank</span></code></a>(ht, …)</p></td>
+<td><p>Adds rank based on the <cite>score_expr</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-gnomad.utils.gnomad_functions"></span><dl class="function">
+<dt id="gnomad.utils.gnomad_functions.filter_to_adj">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">filter_to_adj</code><span class="sig-paren">(</span><em class="sig-param">mt</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#filter_to_adj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.filter_to_adj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter genotypes to adj criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mt</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.get_adj_expr">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">get_adj_expr</code><span class="sig-paren">(</span><em class="sig-param">gt_expr</em>, <em class="sig-param">gq_expr</em>, <em class="sig-param">dp_expr</em>, <em class="sig-param">ad_expr</em>, <em class="sig-param">adj_gq=20</em>, <em class="sig-param">adj_dp=10</em>, <em class="sig-param">adj_ab=0.2</em>, <em class="sig-param">haploid_adj_dp=10</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#get_adj_expr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.get_adj_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets adj genotype annotation.
+Defaults correspond to gnomAD values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gt_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.CallExpression.html#hail.expr.CallExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CallExpression</span></code></a>) – </p></li>
+<li><p><strong>gq_expr</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.Int32Expression.html#hail.expr.Int32Expression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int32Expression</span></code></a>, <a class="reference external" href="https://hail.is/docs/0.2/hail.expr.Int64Expression.html#hail.expr.Int64Expression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int64Expression</span></code></a>]) – </p></li>
+<li><p><strong>dp_expr</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.Int32Expression.html#hail.expr.Int32Expression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int32Expression</span></code></a>, <a class="reference external" href="https://hail.is/docs/0.2/hail.expr.Int64Expression.html#hail.expr.Int64Expression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int64Expression</span></code></a>]) – </p></li>
+<li><p><strong>ad_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.ArrayNumericExpression.html#hail.expr.ArrayNumericExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayNumericExpression</span></code></a>) – </p></li>
+<li><p><strong>adj_gq</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – </p></li>
+<li><p><strong>adj_dp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – </p></li>
+<li><p><strong>adj_ab</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – </p></li>
+<li><p><strong>haploid_adj_dp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.expr.BooleanExpression.html#hail.expr.BooleanExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanExpression</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.annotate_adj">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">annotate_adj</code><span class="sig-paren">(</span><em class="sig-param">mt</em>, <em class="sig-param">adj_gq=20</em>, <em class="sig-param">adj_dp=10</em>, <em class="sig-param">adj_ab=0.2</em>, <em class="sig-param">haploid_adj_dp=10</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#annotate_adj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.annotate_adj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate genotypes with adj criteria (assumes diploid)
+Defaults correspond to gnomAD values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mt</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a>) – </p></li>
+<li><p><strong>adj_gq</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – </p></li>
+<li><p><strong>adj_dp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – </p></li>
+<li><p><strong>adj_ab</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – </p></li>
+<li><p><strong>haploid_adj_dp</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.add_variant_type">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">add_variant_type</code><span class="sig-paren">(</span><em class="sig-param">alt_alleles</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#add_variant_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.add_variant_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Struct of variant_type and n_alt_alleles from ArrayExpression of Strings (all alleles)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alt_alleles</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.ArrayExpression.html#hail.expr.ArrayExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayExpression</span></code></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.expr.StructExpression.html#hail.expr.StructExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StructExpression</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.adjusted_sex_ploidy_expr">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">adjusted_sex_ploidy_expr</code><span class="sig-paren">(</span><em class="sig-param">locus_expr</em>, <em class="sig-param">gt_expr</em>, <em class="sig-param">karyotype_expr</em>, <em class="sig-param">xy_karyotype_str='XY'</em>, <em class="sig-param">xx_karyotype_str='XX'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#adjusted_sex_ploidy_expr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.adjusted_sex_ploidy_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an entry expression to convert males to haploid on non-PAR X/Y and females to missing on Y</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locus_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.LocusExpression.html#hail.expr.LocusExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocusExpression</span></code></a>) – Locus</p></li>
+<li><p><strong>gt_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.CallExpression.html#hail.expr.CallExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CallExpression</span></code></a>) – Genotype</p></li>
+<li><p><strong>karyotype_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.StringExpression.html#hail.expr.StringExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringExpression</span></code></a>) – Karyotype</p></li>
+<li><p><strong>xy_karyotype_str</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Male sex karyotype representation</p></li>
+<li><p><strong>xx_karyotype_str</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Female sex karyotype representation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.expr.CallExpression.html#hail.expr.CallExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CallExpression</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Genotype adjusted for sex ploidy</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.adjust_sex_ploidy">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">adjust_sex_ploidy</code><span class="sig-paren">(</span><em class="sig-param">mt</em>, <em class="sig-param">sex_expr</em>, <em class="sig-param">male_str='male'</em>, <em class="sig-param">female_str='female'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#adjust_sex_ploidy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.adjust_sex_ploidy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts males to haploid on non-PAR X/Y, sets females to missing on Y</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mt</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a>) – Input MatrixTable</p></li>
+<li><p><strong>sex_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.StringExpression.html#hail.expr.StringExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringExpression</span></code></a>) – Expression pointing to sex in MT (if not male_str or female_str, no change)</p></li>
+<li><p><strong>male_str</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – String for males (default ‘male’)</p></li>
+<li><p><strong>female_str</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – String for females (default ‘female’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>MatrixTable with fixed ploidy for sex chromosomes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.read_list_data">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">read_list_data</code><span class="sig-paren">(</span><em class="sig-param">input_file_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#read_list_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.read_list_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a file input into a python list (each line will be an element).
+Supports Google storage paths and .gz compression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_file_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – File path</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of lines</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.liftover_using_gnomad_map">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">liftover_using_gnomad_map</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">data_type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#liftover_using_gnomad_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.liftover_using_gnomad_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Liftover a gnomAD table using already-established liftover file. Warning: shuffles!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> – Input Hail table</p></li>
+<li><p><strong>data_type</strong> – one of “exomes” or “genomes” which to map across</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Lifted over table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.filter_by_frequency">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">filter_by_frequency</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">direction</em>, <em class="sig-param">frequency=None</em>, <em class="sig-param">allele_count=None</em>, <em class="sig-param">population=None</em>, <em class="sig-param">subpop=None</em>, <em class="sig-param">downsampling=None</em>, <em class="sig-param">keep=True</em>, <em class="sig-param">adj=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#filter_by_frequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.filter_by_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter MatrixTable or Table with gnomAD-format frequency data (assumed bi-allelic/split)
+(i.e. Array[Struct(Array[AC], Array[AF], AN, homozygote_count, meta)])</p>
+<p>At least one of frequency or allele_count is required.</p>
+<p>Subpop can be specified without a population if desired.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a>, <a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>]) – Input MatrixTable or Table</p></li>
+<li><p><strong>direction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – One of “above”, “below”, and “equal” (how to apply the filter)</p></li>
+<li><p><strong>frequency</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – Frequency to filter by (one of frequency or allele_count is required)</p></li>
+<li><p><strong>allele_count</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Allele count to filter by (one of frequency or allele_count is required)</p></li>
+<li><p><strong>population</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Population in which to filter frequency</p></li>
+<li><p><strong>subpop</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Sub-population in which to filter frequency</p></li>
+<li><p><strong>downsampling</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Downsampling in which to filter frequency</p></li>
+<li><p><strong>keep</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to keep rows passing this frequency (passed to filter_rows)</p></li>
+<li><p><strong>adj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to use adj frequency</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a>, <a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Filtered MatrixTable or Table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.pretty_print_runs">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">pretty_print_runs</code><span class="sig-paren">(</span><em class="sig-param">runs</em>, <em class="sig-param">label_col='rf_label'</em>, <em class="sig-param">prediction_col_name='rf_prediction'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#pretty_print_runs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.pretty_print_runs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the information for the RF runs loaded from the json file storing the RF run hashes -&gt; info</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>runs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – Dictionary containing JSON input loaded from RF run file</p></li>
+<li><p><strong>label_col</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the RF label column</p></li>
+<li><p><strong>prediction_col_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the RF prediction column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Nothing – only prints information</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.gnomad_functions.add_rank">
+<code class="sig-prename descclassname">gnomad.utils.gnomad_functions.</code><code class="sig-name descname">add_rank</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">score_expr</em>, <em class="sig-param">subrank_expr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/gnomad_functions.html#add_rank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.gnomad_functions.add_rank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds rank based on the <cite>score_expr</cite>. Rank is added for snvs and indels separately.
+If one or more <cite>subrank_expr</cite> are provided, then subrank is added based on all sites for which the boolean expression is true.</p>
+<p>In addition, variant counts (snv, indel separately) is added as a global (<cite>rank_variant_counts</cite>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – input Hail Table containing variants (with QC annotations) to be ranked</p></li>
+<li><p><strong>score_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.NumericExpression.html#hail.expr.NumericExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumericExpression</span></code></a>) – the Table annotation by which ranking should be scored</p></li>
+<li><p><strong>subrank_expr</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference external" href="https://hail.is/docs/0.2/hail.expr.BooleanExpression.html#hail.expr.BooleanExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanExpression</span></code></a>]]) – Any subranking to be added in the form name_of_subrank: subrank_filtering_expr</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Table with rankings added</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ld.html" class="btn btn-neutral float-right" title="gnomad.utils.ld" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="generic.html" class="btn btn-neutral float-left" title="gnomad.utils.generic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

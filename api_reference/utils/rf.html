@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.utils.rf &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gnomad.utils.sample_qc" href="sample_qc.html" />
+    <link rel="prev" title="gnomad.utils.relatedness" href="relatedness.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../resources/index.html">resources</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">utils</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="annotations.html">annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants.html">constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generic.html">generic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gnomad_functions.html">gnomad_functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ld.html">ld</a></li>
+<li class="toctree-l3"><a class="reference internal" href="liftover.html">liftover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html">plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="relatedness.html">relatedness</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">rf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_qc.html">sample_qc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slack.html">slack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sparse_mt.html">sparse_mt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variant_qc.html">variant_qc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">gnomad</a> &raquo;</li>
+        
+          <li><a href="index.html">gnomad.utils</a> &raquo;</li>
+        
+      <li>gnomad.utils.rf</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_reference/utils/rf.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gnomad-utils-rf">
+<h1>gnomad.utils.rf<a class="headerlink" href="#gnomad-utils-rf" title="Permalink to this headline">¶</a></h1>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.rf.run_rf_test" title="gnomad.utils.rf.run_rf_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.run_rf_test</span></code></a>(mt[, output])</p></td>
+<td><p>Runs a dummy test RF on a given MT.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.rf.check_ht_fields_for_spark" title="gnomad.utils.rf.check_ht_fields_for_spark"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.check_ht_fields_for_spark</span></code></a>(ht, …)</p></td>
+<td><p>Checks specified fields of a hail table for Spark DataFrame conversion (type and name)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.rf.get_columns_quantiles" title="gnomad.utils.rf.get_columns_quantiles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.get_columns_quantiles</span></code></a>(ht, …)</p></td>
+<td><p>Computes approximate quantiles of specified numeric fields from non-missing values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.rf.ht_to_rf_df" title="gnomad.utils.rf.ht_to_rf_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.ht_to_rf_df</span></code></a>(ht, features, label)</p></td>
+<td><p>Creates a Spark dataframe ready for RF from a HT.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.rf.get_features_importance" title="gnomad.utils.rf.get_features_importance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.get_features_importance</span></code></a>(…)</p></td>
+<td><p>Extract the features importance from a Pipeline model containing a RandomForestClassifier stage.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.rf.get_labels" title="gnomad.utils.rf.get_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.get_labels</span></code></a>(rf_pipeline)</p></td>
+<td><p>Returns the labels from the StringIndexer stage at index 0 from an RF pipeline model</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.rf.test_model" title="gnomad.utils.rf.test_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.test_model</span></code></a>(ht, rf_model, …)</p></td>
+<td><p>A wrapper to test a model on a set of examples with known labels.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.rf.apply_rf_model" title="gnomad.utils.rf.apply_rf_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.apply_rf_model</span></code></a>(ht, rf_model, …)</p></td>
+<td><p>Applies a Random Forest (RF) pipeline model to a Table and annotate the RF probabilities and predictions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.rf.save_model" title="gnomad.utils.rf.save_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.save_model</span></code></a>(rf_pipeline, out_path)</p></td>
+<td><p>Saves a Random Forest pipeline model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.rf.load_model" title="gnomad.utils.rf.load_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.load_model</span></code></a>(input_path)</p></td>
+<td><p>Loads a Random Forest pipeline model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.rf.train_rf" title="gnomad.utils.rf.train_rf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.rf.train_rf</span></code></a>(ht, features, label)</p></td>
+<td><p>Trains a Random Forest (RF) pipeline model.</p></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-gnomad.utils.rf"></span><dl class="function">
+<dt id="gnomad.utils.rf.run_rf_test">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">run_rf_test</code><span class="sig-paren">(</span><em class="sig-param">mt</em>, <em class="sig-param">output='/tmp'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#run_rf_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.run_rf_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a dummy test RF on a given MT.</p>
+<ol class="arabic simple">
+<li><p>Creates row annotations and labels to run model on</p></li>
+<li><p>Trains a RF pipeline model (including median imputation of missing values in created annotations)</p></li>
+<li><p>Saves the RF pipeline model</p></li>
+<li><p>Applies the model to the MT and prints features importance</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mt</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a>) – Input MT</p></li>
+<li><p><strong>output</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Output files prefix to save the RF model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code>, <a class="reference external" href="https://hail.is/docs/0.2/hail.MatrixTable.html#hail.MatrixTable" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatrixTable</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>RF model and MatrixTable after applying RF model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.check_ht_fields_for_spark">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">check_ht_fields_for_spark</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">fields</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#check_ht_fields_for_spark"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.check_ht_fields_for_spark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks specified fields of a hail table for Spark DataFrame conversion (type and name)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – input Table</p></li>
+<li><p><strong>fields</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Fields to test</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.get_columns_quantiles">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">get_columns_quantiles</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">fields</em>, <em class="sig-param">quantiles</em>, <em class="sig-param">relative_error=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#get_columns_quantiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.get_columns_quantiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes approximate quantiles of specified numeric fields from non-missing values. Non-numeric fields are ignored.</p>
+<p>This function returns a Dict of column name -&gt; list of quantiles in the same order specified.
+If a column only has NAs, None is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – input HT</p></li>
+<li><p><strong>fields</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – list of features to impute. If none given, all numerical features with missing data are imputed</p></li>
+<li><p><strong>quantiles</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – list of quantiles to return (e.g. [0.5] would return the median)</p></li>
+<li><p><strong>relative_error</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The relative error on the quantile approximation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dict of column -&gt; quantiles</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.ht_to_rf_df">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">ht_to_rf_df</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">features</em>, <em class="sig-param">label</em>, <em class="sig-param">index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#ht_to_rf_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.ht_to_rf_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Spark dataframe ready for RF from a HT.
+Rows with any missing features are dropped.
+Missing labels are replaced with ‘NA’</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only basic types are supported!</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Input HT</p></li>
+<li><p><strong>features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Features that will be used for RF</p></li>
+<li><p><strong>label</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Label column that will be predicted by RF</p></li>
+<li><p><strong>index</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Optional index column to keep (E.g. for joining results back at later stage)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Spark Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.get_features_importance">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">get_features_importance</code><span class="sig-paren">(</span><em class="sig-param">rf_pipeline</em>, <em class="sig-param">rf_index=-2</em>, <em class="sig-param">assembler_index=-3</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#get_features_importance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.get_features_importance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the features importance from a Pipeline model containing a RandomForestClassifier stage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rf_pipeline</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code>) – Input pipeline</p></li>
+<li><p><strong>rf_index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – index of the RandomForestClassifier stage</p></li>
+<li><p><strong>assembler_index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – index of the VectorAssembler stage</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>feature importance for each feature in the RF model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.get_labels">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">get_labels</code><span class="sig-paren">(</span><em class="sig-param">rf_pipeline</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#get_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.get_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the labels from the StringIndexer stage at index 0 from an RF pipeline model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rf_pipeline</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code>) – Input pipeline</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>labels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.test_model">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">test_model</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">rf_model</em>, <em class="sig-param">features</em>, <em class="sig-param">label</em>, <em class="sig-param">prediction_col_name='rf_prediction'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#test_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.test_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper to test a model on a set of examples with known labels.</p>
+<ol class="arabic simple">
+<li><p>Runs the model on the data</p></li>
+<li><p>Prints confusion matrix and accuracy</p></li>
+<li><p>Returns confusion matrix as a list of struct</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Input table</p></li>
+<li><p><strong>rf_model</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code>) – RF Model</p></li>
+<li><p><strong>features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Columns containing features that were used in the model</p></li>
+<li><p><strong>label</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Column containing label to be predicted</p></li>
+<li><p><strong>prediction_col_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Where to store the prediction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://hail.is/docs/0.2/types.html#hail.expr.types.tstruct" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tstruct</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list containing structs with {label, prediction, n}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.apply_rf_model">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">apply_rf_model</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">rf_model</em>, <em class="sig-param">features</em>, <em class="sig-param">label</em>, <em class="sig-param">probability_col_name='rf_probability'</em>, <em class="sig-param">prediction_col_name='rf_prediction'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#apply_rf_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.apply_rf_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a Random Forest (RF) pipeline model to a Table and annotate the RF probabilities and predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Input HT</p></li>
+<li><p><strong>rf_model</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code>) – Random Forest pipeline model</p></li>
+<li><p><strong>features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of feature columns in the pipeline. !Should match the model list of features!</p></li>
+<li><p><strong>label</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Column containing the labels. !Should match the model labels!</p></li>
+<li><p><strong>probability_col_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the column that will store the RF probabilities</p></li>
+<li><p><strong>prediction_col_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the column that will store the RF predictions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Table with RF columns</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.save_model">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param">rf_pipeline</em>, <em class="sig-param">out_path</em>, <em class="sig-param">overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#save_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves a Random Forest pipeline model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rf_pipeline</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code>) – Pipeline to save</p></li>
+<li><p><strong>out_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Output path</p></li>
+<li><p><strong>overwrite</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If set, will overwrite existing file(s) at output location</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.load_model">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param">input_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#load_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a Random Forest pipeline model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Location of model to load</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Random Forest pipeline model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.rf.train_rf">
+<code class="sig-prename descclassname">gnomad.utils.rf.</code><code class="sig-name descname">train_rf</code><span class="sig-paren">(</span><em class="sig-param">ht</em>, <em class="sig-param">features</em>, <em class="sig-param">label</em>, <em class="sig-param">num_trees=500</em>, <em class="sig-param">max_depth=5</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/rf.html#train_rf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.rf.train_rf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains a Random Forest (RF) pipeline model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Input HT</p></li>
+<li><p><strong>features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of columns to be used as features</p></li>
+<li><p><strong>label</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Column containing the label to predict</p></li>
+<li><p><strong>num_trees</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of trees to use</p></li>
+<li><p><strong>max_depth</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Maximum tree depth</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">PipelineModel</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Random Forest pipeline model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sample_qc.html" class="btn btn-neutral float-right" title="gnomad.utils.sample_qc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="relatedness.html" class="btn btn-neutral float-left" title="gnomad.utils.relatedness" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

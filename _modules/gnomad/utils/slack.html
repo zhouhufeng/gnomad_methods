@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.utils.slack &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gnomad.utils.slack</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gnomad.utils.slack</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">io</span>
+
+
+<div class="viewcode-block" id="get_slack_info"><a class="viewcode-back" href="../../../api_reference/utils/slack.html#gnomad.utils.slack.get_slack_info">[docs]</a><span class="k">def</span> <span class="nf">get_slack_info</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">getpass</span>
+    <span class="kn">from</span> <span class="nn">slackclient</span> <span class="kn">import</span> <span class="n">SlackClient</span>
+    <span class="c1"># import os</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">gnomad.slack_creds</span> <span class="kn">import</span> <span class="n">slack_token</span>  <span class="c1"># pylint: disable=import-error,no-name-in-module</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># slack_token = os.environ[&quot;SLACK_API_TOKEN&quot;]</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">SlackClient</span><span class="p">(</span><span class="n">slack_token</span><span class="p">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;konrad&#39;</span><span class="p">):</span> <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;konradjk&#39;</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">api_call</span><span class="p">(</span><span class="s2">&quot;users.list&quot;</span><span class="p">)[</span><span class="s1">&#39;members&#39;</span><span class="p">]]</span>
+    <span class="n">default_channel</span> <span class="o">=</span> <span class="s1">&#39;#gnomad&#39;</span> <span class="k">if</span> <span class="n">user</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">users</span> <span class="k">else</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="n">user</span>
+    <span class="k">return</span> <span class="n">sc</span><span class="p">,</span> <span class="n">default_channel</span></div>
+
+
+<div class="viewcode-block" id="get_slack_channel_id"><a class="viewcode-back" href="../../../api_reference/utils/slack.html#gnomad.utils.slack.get_slack_channel_id">[docs]</a><span class="k">def</span> <span class="nf">get_slack_channel_id</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
+    <span class="n">channel_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">api_call</span><span class="p">(</span><span class="s1">&#39;channels.list&#39;</span><span class="p">)[</span><span class="s1">&#39;channels&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">channel</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">channel_id</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">channel_id</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">channel_id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="get_slack_user_id"><a class="viewcode-back" href="../../../api_reference/utils/slack.html#gnomad.utils.slack.get_slack_user_id">[docs]</a><span class="k">def</span> <span class="nf">get_slack_user_id</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="n">channel_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">api_call</span><span class="p">(</span><span class="s1">&#39;users.list&#39;</span><span class="p">)[</span><span class="s1">&#39;members&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">user</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">channel_id</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">channel_id</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">channel_id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="send_message"><a class="viewcode-back" href="../../../api_reference/utils/slack.html#gnomad.utils.slack.send_message">[docs]</a><span class="k">def</span> <span class="nf">send_message</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Your job is done!&quot;</span><span class="p">,</span> <span class="n">icon_emoji</span><span class="o">=</span><span class="s1">&#39;:woohoo:&#39;</span><span class="p">):</span>
+    <span class="n">sc</span><span class="p">,</span> <span class="n">default_channel</span> <span class="o">=</span> <span class="n">get_slack_info</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">channels</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">api_call</span><span class="p">(</span>
+            <span class="s2">&quot;chat.postMessage&quot;</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
+            <span class="n">icon_emoji</span><span class="o">=</span><span class="n">icon_emoji</span><span class="p">,</span>
+            <span class="n">parse</span><span class="o">=</span><span class="s1">&#39;full&#39;</span>
+        <span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="send_snippet"><a class="viewcode-back" href="../../../api_reference/utils/slack.html#gnomad.utils.slack.send_snippet">[docs]</a><span class="k">def</span> <span class="nf">send_snippet</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;data.txt&#39;</span><span class="p">):</span>
+    <span class="n">sc</span><span class="p">,</span> <span class="n">default_channel</span> <span class="o">=</span> <span class="n">get_slack_info</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">channels</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">channels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">default_channel</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">channel</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">):</span>
+            <span class="n">channel_id</span> <span class="o">=</span> <span class="n">get_slack_user_id</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">channel_id</span> <span class="o">=</span> <span class="n">get_slack_channel_id</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sc</span><span class="o">.</span><span class="n">api_call</span><span class="p">(</span><span class="s2">&quot;files.upload&quot;</span><span class="p">,</span>
+                               <span class="n">channels</span><span class="o">=</span><span class="n">channel_id</span><span class="p">,</span>
+                               <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+                               <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Slack connection fail. Was going to send:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="send_file"><a class="viewcode-back" href="../../../api_reference/utils/slack.html#gnomad.utils.slack.send_file">[docs]</a><span class="k">def</span> <span class="nf">send_file</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;plot.png&#39;</span><span class="p">,</span> <span class="n">tfile_name</span><span class="o">=</span><span class="s1">&#39;/home/hail/plot.png&#39;</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">export_png</span>
+    <span class="n">sc</span><span class="p">,</span> <span class="n">default_channel</span> <span class="o">=</span> <span class="n">get_slack_info</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">channel</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">):</span>
+        <span class="n">channel_id</span> <span class="o">=</span> <span class="n">get_slack_user_id</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">channel_id</span> <span class="o">=</span> <span class="n">get_slack_channel_id</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">))</span>
+
+    <span class="n">export_png</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">tfile_name</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tfile_name</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">api_call</span><span class="p">(</span><span class="s2">&quot;files.upload&quot;</span><span class="p">,</span>
+                    <span class="n">channels</span><span class="o">=</span><span class="n">channel_id</span><span class="p">,</span>
+                    <span class="n">file</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()),</span>
+                    <span class="n">filename</span><span class="o">=</span><span class="n">filename</span>
+                    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="try_slack"><a class="viewcode-back" href="../../../api_reference/utils/slack.html#gnomad.utils.slack.try_slack">[docs]</a><span class="k">def</span> <span class="nf">try_slack</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">traceback</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">send_message</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;Success! </span><span class="si">{}</span><span class="s1"> finished!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">emoji</span> <span class="o">=</span> <span class="s1">&#39;:white_frowning_face:&#39;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">3500</span><span class="p">:</span>  <span class="c1"># Slack message length limit (from https://api.slack.com/methods/chat.postMessage)</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;error_</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">_%H:%M&quot;</span><span class="p">))</span>
+                <span class="n">snippet</span> <span class="o">=</span> <span class="n">send_snippet</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;file&#39;</span> <span class="ow">in</span> <span class="n">snippet</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;SparkContext was shut down&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;connect to the Java server&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+                        <span class="n">send_message</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;Job (</span><span class="si">{}</span><span class="s1">) cancelled - see </span><span class="si">{}</span><span class="s1"> for error log&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">snippet</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">][</span><span class="s1">&#39;url_private&#39;</span><span class="p">]),</span> <span class="s1">&#39;:beaker:&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">send_message</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;Job (</span><span class="si">{}</span><span class="s1">) failed :white_frowning_face: - see </span><span class="si">{}</span><span class="s1"> for error log&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">snippet</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">][</span><span class="s1">&#39;url_private&#39;</span><span class="p">]),</span> <span class="n">emoji</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">send_message</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;Snippet failed to upload: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">snippet</span><span class="p">),</span> <span class="n">emoji</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">send_message</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;Job (</span><span class="si">{}</span><span class="s1">) failed :white_frowning_face:</span><span class="se">\n</span><span class="s1">```</span><span class="si">{}</span><span class="s1">```&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()),</span> <span class="n">emoji</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: missing slackclient. But here&#39;s the original error:&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

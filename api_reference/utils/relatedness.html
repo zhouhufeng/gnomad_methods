@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.utils.relatedness &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gnomad.utils.rf" href="rf.html" />
+    <link rel="prev" title="gnomad.utils.plotting" href="plotting.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../resources/index.html">resources</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">utils</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="annotations.html">annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants.html">constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generic.html">generic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gnomad_functions.html">gnomad_functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ld.html">ld</a></li>
+<li class="toctree-l3"><a class="reference internal" href="liftover.html">liftover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html">plotting</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">relatedness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rf.html">rf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_qc.html">sample_qc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="slack.html">slack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sparse_mt.html">sparse_mt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variant_qc.html">variant_qc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">gnomad</a> &raquo;</li>
+        
+          <li><a href="index.html">gnomad.utils</a> &raquo;</li>
+        
+      <li>gnomad.utils.relatedness</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_reference/utils/relatedness.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gnomad-utils-relatedness">
+<h1>gnomad.utils.relatedness<a class="headerlink" href="#gnomad-utils-relatedness" title="Permalink to this headline">¶</a></h1>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.UNRELATED" title="gnomad.utils.relatedness.UNRELATED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.UNRELATED</span></code></a></p></td>
+<td><p>String representation for a pair of unrelated individuals in this module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.SECOND_DEGREE_RELATIVES" title="gnomad.utils.relatedness.SECOND_DEGREE_RELATIVES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.SECOND_DEGREE_RELATIVES</span></code></a></p></td>
+<td><p>String representation for a pair of 2nd degree relatives in this module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.PARENT_CHILD" title="gnomad.utils.relatedness.PARENT_CHILD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.PARENT_CHILD</span></code></a></p></td>
+<td><p>String representation for a parent-child pair in this module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.SIBLINGS" title="gnomad.utils.relatedness.SIBLINGS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.SIBLINGS</span></code></a></p></td>
+<td><p>String representation for a sibling pair in this module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.DUPLICATE_OR_TWINS" title="gnomad.utils.relatedness.DUPLICATE_OR_TWINS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.DUPLICATE_OR_TWINS</span></code></a></p></td>
+<td><p>String representation for a pair of samples who are identical (either MZ twins of duplicate) in this module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.AMBIGUOUS_RELATIONSHIP" title="gnomad.utils.relatedness.AMBIGUOUS_RELATIONSHIP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.AMBIGUOUS_RELATIONSHIP</span></code></a></p></td>
+<td><p>String representation for a pair of samples whose relationship is ambiguous.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.get_duplicated_samples" title="gnomad.utils.relatedness.get_duplicated_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.get_duplicated_samples</span></code></a>(…)</p></td>
+<td><p>Given a pc_relate output Table, extract the list of duplicate samples.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.get_duplicated_samples_ht" title="gnomad.utils.relatedness.get_duplicated_samples_ht"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.get_duplicated_samples_ht</span></code></a>(…)</p></td>
+<td><p>Creates a HT with duplicated samples sets.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.explode_duplicate_samples_ht" title="gnomad.utils.relatedness.explode_duplicate_samples_ht"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.explode_duplicate_samples_ht</span></code></a>(dups_ht)</p></td>
+<td><p>Flattens the result of <cite>filter_duplicate_samples</cite>, so that each line contains a single sample.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.get_relationship_expr" title="gnomad.utils.relatedness.get_relationship_expr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.get_relationship_expr</span></code></a>(…)</p></td>
+<td><p>Returns an expression that gives the relationship between a pair of samples given their kin coefficient and IBDO, IBD1, IBD2 values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.infer_families" title="gnomad.utils.relatedness.infer_families"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.infer_families</span></code></a>(…)</p></td>
+<td><p>This function takes a hail Table with a row for each pair of individuals i,j in the data that are related (it’s OK to have unrelated samples too).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gnomad.utils.relatedness.create_fake_pedigree" title="gnomad.utils.relatedness.create_fake_pedigree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnomad.utils.relatedness.create_fake_pedigree</span></code></a>(n, …)</p></td>
+<td><p>Generates a pedigree made of trios created by sampling 3 random samples in the sample list.</p></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-gnomad.utils.relatedness"></span><dl class="data">
+<dt id="gnomad.utils.relatedness.UNRELATED">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">UNRELATED</code><em class="property"> = 'Unrelated'</em><a class="headerlink" href="#gnomad.utils.relatedness.UNRELATED" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation for a pair of unrelated individuals in this module.
+Typically &gt;2nd degree relatives, but the threshold is user-dependant.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="gnomad.utils.relatedness.SECOND_DEGREE_RELATIVES">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">SECOND_DEGREE_RELATIVES</code><em class="property"> = '2nd degree relatives'</em><a class="headerlink" href="#gnomad.utils.relatedness.SECOND_DEGREE_RELATIVES" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation for a pair of 2nd degree relatives in this module.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="gnomad.utils.relatedness.PARENT_CHILD">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">PARENT_CHILD</code><em class="property"> = 'Parent-child'</em><a class="headerlink" href="#gnomad.utils.relatedness.PARENT_CHILD" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation for a parent-child pair in this module.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="gnomad.utils.relatedness.SIBLINGS">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">SIBLINGS</code><em class="property"> = 'Siblings'</em><a class="headerlink" href="#gnomad.utils.relatedness.SIBLINGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation for a sibling pair in this module.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="gnomad.utils.relatedness.DUPLICATE_OR_TWINS">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">DUPLICATE_OR_TWINS</code><em class="property"> = 'Duplicate/twins'</em><a class="headerlink" href="#gnomad.utils.relatedness.DUPLICATE_OR_TWINS" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation for a pair of samples who are identical (either MZ twins of duplicate) in this module.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="gnomad.utils.relatedness.AMBIGUOUS_RELATIONSHIP">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">AMBIGUOUS_RELATIONSHIP</code><em class="property"> = 'Ambiguous'</em><a class="headerlink" href="#gnomad.utils.relatedness.AMBIGUOUS_RELATIONSHIP" title="Permalink to this definition">¶</a></dt>
+<dd><p>String representation for a pair of samples whose relationship is ambiguous.
+This is used in the case of a pair of samples which kinship/IBD values do not correspond to any biological relationship between two individuals.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.relatedness.get_duplicated_samples">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">get_duplicated_samples</code><span class="sig-paren">(</span><em class="sig-param">relationship_ht</em>, <em class="sig-param">i_col='i'</em>, <em class="sig-param">j_col='j'</em>, <em class="sig-param">rel_col='relationship'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/relatedness.html#get_duplicated_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.relatedness.get_duplicated_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a pc_relate output Table, extract the list of duplicate samples. Returns a list of set of samples that are duplicates.
+:type relationship_ht: <a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>
+:param relationship_ht: Table with relationships between pairs of samples
+:type i_col: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param i_col: Column containing the 1st sample
+:type j_col: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param j_col: Column containing the 2nd sample
+:type rel_col: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param rel_col: Column containing the sample pair relationship annotated with get_relationship_expr
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]
+:return: List of sets of samples that are duplicates</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.relatedness.get_duplicated_samples_ht">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">get_duplicated_samples_ht</code><span class="sig-paren">(</span><em class="sig-param">duplicated_samples</em>, <em class="sig-param">samples_rankings_ht</em>, <em class="sig-param">rank_ann='rank'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/relatedness.html#get_duplicated_samples_ht"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.relatedness.get_duplicated_samples_ht" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a HT with duplicated samples sets.
+Each row is indexed by the sample that is kept and also contains the set of duplicate samples that should be filtered.</p>
+<p><cite>samples_rankings_ht</cite> is a HT containing a global rank for each of the samples (smaller is better).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>duplicated_samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – List of sets of duplicated samples</p></li>
+<li><p><strong>samples_rankings_ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – HT with global rank for each sample</p></li>
+<li><p><strong>rank_ann</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Annotation in <cite>samples_ranking_ht</cite> containing each sample global rank (smaller is better).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>HT with duplicate sample sets, including which to keep/filter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.relatedness.explode_duplicate_samples_ht">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">explode_duplicate_samples_ht</code><span class="sig-paren">(</span><em class="sig-param">dups_ht</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/relatedness.html#explode_duplicate_samples_ht"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.relatedness.explode_duplicate_samples_ht" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flattens the result of <cite>filter_duplicate_samples</cite>, so that each line contains a single sample.
+An additional annotation is added: <cite>dup_filtered</cite> indicating which of the duplicated samples was kept.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dups_ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Input HT</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Flattened HT</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.relatedness.get_relationship_expr">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">get_relationship_expr</code><span class="sig-paren">(</span><em class="sig-param">kin_expr</em>, <em class="sig-param">ibd0_expr</em>, <em class="sig-param">ibd1_expr</em>, <em class="sig-param">ibd2_expr</em>, <em class="sig-param">first_degree_kin_thresholds=(0.19</em>, <em class="sig-param">0.4)</em>, <em class="sig-param">second_degree_min_kin=0.1</em>, <em class="sig-param">ibd0_0_max=0.025</em>, <em class="sig-param">ibd0_25_thresholds=(0.1</em>, <em class="sig-param">0.425)</em>, <em class="sig-param">ibd1_0_thresholds=(-0.15</em>, <em class="sig-param">0.1)</em>, <em class="sig-param">ibd1_50_thresholds=(0.275</em>, <em class="sig-param">0.75)</em>, <em class="sig-param">ibd1_100_min=0.75</em>, <em class="sig-param">ibd2_0_max=0.125</em>, <em class="sig-param">ibd2_25_thresholds=(0.1</em>, <em class="sig-param">0.5)</em>, <em class="sig-param">ibd2_100_thresholds=(0.75</em>, <em class="sig-param">1.25)</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/relatedness.html#get_relationship_expr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.relatedness.get_relationship_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an expression that gives the relationship between a pair of samples given their kin coefficient and IBDO, IBD1, IBD2 values.
+The kinship coefficient values in the defaults are in line with those output from <cite>hail.methods.pc_relate &lt;https://hail.is/docs/0.2/methods/genetics.html?highlight=pc_relate#hail.methods.pc_relate&gt;</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kin_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.NumericExpression.html#hail.expr.NumericExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumericExpression</span></code></a>) – Kin coefficient expression</p></li>
+<li><p><strong>ibd0_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.NumericExpression.html#hail.expr.NumericExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumericExpression</span></code></a>) – IBDO expression</p></li>
+<li><p><strong>ibd1_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.NumericExpression.html#hail.expr.NumericExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumericExpression</span></code></a>) – IBD1 expression</p></li>
+<li><p><strong>ibd2_expr</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.expr.NumericExpression.html#hail.expr.NumericExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NumericExpression</span></code></a>) – IDB2 expression</p></li>
+<li><p><strong>first_degree_kin_thresholds</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – (min, max) kinship threshold for 1st degree relatives</p></li>
+<li><p><strong>second_degree_min_kin</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – min kinship threshold for 2nd degree relatives</p></li>
+<li><p><strong>ibd0_0_max</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – max IBD0 threshold for 0 IBD0 sharing</p></li>
+<li><p><strong>ibd0_25_thresholds</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – (min, max) thresholds for 0.25 IBD0 sharing</p></li>
+<li><p><strong>ibd1_0_thresholds</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – (min, max) thresholds for 0 IBD1 sharing. Note that the min is there because pc_relate can output large negative values in some corner cases.</p></li>
+<li><p><strong>ibd1_50_thresholds</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – (min, max) thresholds for 0.5 IBD1 sharing</p></li>
+<li><p><strong>ibd1_100_min</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – min IBD1 threshold for 1.0 IBD1 sharing</p></li>
+<li><p><strong>ibd2_0_max</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – max IBD2 threshold for 0 IBD2 sharing</p></li>
+<li><p><strong>ibd2_25_thresholds</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – (min, max) thresholds for 0.25 IBD2 sharing</p></li>
+<li><p><strong>ibd2_100_thresholds</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – (min, max) thresholds for 1.00 IBD2 sharing. Note that the min is there because pc_relate can output much larger IBD2 values in some corner cases.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/hail.expr.StringExpression.html#hail.expr.StringExpression" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringExpression</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The relationship annotation using the constants defined in this module.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.relatedness.infer_families">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">infer_families</code><span class="sig-paren">(</span><em class="sig-param">relationship_ht</em>, <em class="sig-param">sex</em>, <em class="sig-param">duplicate_samples_ht</em>, <em class="sig-param">i_col='i'</em>, <em class="sig-param">j_col='j'</em>, <em class="sig-param">relationship_col='relationship'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/relatedness.html#infer_families"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.relatedness.infer_families" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function takes a hail Table with a row for each pair of individuals i,j in the data that are related (it’s OK to have unrelated samples too).
+The <cite>relationship_col</cite> should be a column specifying the relationship between each two samples as defined in this module’s constants.</p>
+<p>This function returns a pedigree containing trios inferred from the data. Family ID can be the same for multiple
+trios if one or more members of the trios are related (e.g. sibs, multi-generational family). Trios are ordered by family ID.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function only returns complete trios defined as: one child, one father and one mother (sex is required for both parents).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>relationship_ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – Input relationship table</p></li>
+<li><p><strong>sex</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]]) – A Table or dict giving the sex for each sample (<cite>TRUE`=female, `FALSE`=male). If a Table is given, it should have a field `is_female</cite>.</p></li>
+<li><p><strong>duplicated_samples</strong> – All duplicated samples TO REMOVE (If not provided, this function won’t work as it assumes that each child has exactly two parents)</p></li>
+<li><p><strong>i_col</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Column containing the 1st sample of the pair in the relationship table</p></li>
+<li><p><strong>j_col</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Column containing the 2nd sample of the pair in the relationship table</p></li>
+<li><p><strong>relationship_col</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Column contatining the relationship for the sample pair as defined in this module constants.</p></li>
+<li><p><strong>duplicate_samples_ht</strong> (<a class="reference external" href="https://hail.is/docs/0.2/hail.Table.html#hail.Table" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/genetics/hail.genetics.Pedigree.html#hail.genetics.Pedigree" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pedigree</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pedigree of complete trios</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gnomad.utils.relatedness.create_fake_pedigree">
+<code class="sig-prename descclassname">gnomad.utils.relatedness.</code><code class="sig-name descname">create_fake_pedigree</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">sample_list</em>, <em class="sig-param">exclude_real_probands=False</em>, <em class="sig-param">max_tries=10</em>, <em class="sig-param">real_pedigree=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gnomad/utils/relatedness.html#create_fake_pedigree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gnomad.utils.relatedness.create_fake_pedigree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a pedigree made of trios created by sampling 3 random samples in the sample list.
+If <cite>real_pedigree</cite> is given, then children the resulting fake trios will not include any trio with proband - parents that are in the real ones.
+Each sample can be used only once as a proband in the resulting trios.
+Sex of probands in fake trios is random.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of fake trios desired in the pedigree</p></li>
+<li><p><strong>sample_list</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of samples</p></li>
+<li><p><strong>exclude_real_probands</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – If set, then fake trios probands cannot be in the real trios probands.</p></li>
+<li><p><strong>max_tries</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Maximum number of sampling to try before bailing out (preventing infinite loop if <cite>n</cite> is too large w.r.t. the number of samples)</p></li>
+<li><p><strong>real_pedigree</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://hail.is/docs/0.2/genetics/hail.genetics.Pedigree.html#hail.genetics.Pedigree" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pedigree</span></code></a>]) – Optional pedigree to exclude children from</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://hail.is/docs/0.2/genetics/hail.genetics.Pedigree.html#hail.genetics.Pedigree" title="(in Hail v0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pedigree</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Fake pedigree</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rf.html" class="btn btn-neutral float-right" title="gnomad.utils.rf" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plotting.html" class="btn btn-neutral float-left" title="gnomad.utils.plotting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

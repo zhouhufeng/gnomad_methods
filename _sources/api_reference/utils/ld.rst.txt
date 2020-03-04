@@ -1,0 +1,8 @@
+gnomad.utils.ld
+===============
+
+
+
+.. gnomad_automodulesummary:: gnomad.utils.ld
+
+.. automodule:: gnomad.utils.ld

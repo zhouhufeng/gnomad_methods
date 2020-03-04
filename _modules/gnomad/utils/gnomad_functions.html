@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gnomad.utils.gnomad_functions &mdash; gnomad master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gnomad
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gnomad</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gnomad.utils.gnomad_functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gnomad.utils.gnomad_functions</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">hail</span> <span class="k">as</span> <span class="nn">hl</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(levelname)s</span><span class="s2"> (</span><span class="si">%(name)s</span><span class="s2"> </span><span class="si">%(lineno)s</span><span class="s2">): </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;utils&quot;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="filter_to_adj"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.filter_to_adj">[docs]</a><span class="k">def</span> <span class="nf">filter_to_adj</span><span class="p">(</span><span class="n">mt</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filter genotypes to adj criteria</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;adj&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">mt</span><span class="o">.</span><span class="n">entry</span><span class="p">):</span>
+        <span class="n">mt</span> <span class="o">=</span> <span class="n">annotate_adj</span><span class="p">(</span><span class="n">mt</span><span class="p">)</span>
+    <span class="n">mt</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">filter_entries</span><span class="p">(</span><span class="n">mt</span><span class="o">.</span><span class="n">adj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">mt</span><span class="o">.</span><span class="n">adj</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_adj_expr"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.get_adj_expr">[docs]</a><span class="k">def</span> <span class="nf">get_adj_expr</span><span class="p">(</span>
+        <span class="n">gt_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">CallExpression</span><span class="p">,</span>
+        <span class="n">gq_expr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">Int32Expression</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">Int64Expression</span><span class="p">],</span>
+        <span class="n">dp_expr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">Int32Expression</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">Int64Expression</span><span class="p">],</span>
+        <span class="n">ad_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">ArrayNumericExpression</span><span class="p">,</span>
+        <span class="n">adj_gq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">adj_dp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">adj_ab</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+        <span class="n">haploid_adj_dp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">BooleanExpression</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets adj genotype annotation.</span>
+<span class="sd">    Defaults correspond to gnomAD values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">gq_expr</span> <span class="o">&gt;=</span> <span class="n">adj_gq</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="n">hl</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+                <span class="n">gt_expr</span><span class="o">.</span><span class="n">is_haploid</span><span class="p">(),</span>
+                <span class="n">dp_expr</span> <span class="o">&gt;=</span> <span class="n">haploid_adj_dp</span><span class="p">,</span>
+                <span class="n">dp_expr</span> <span class="o">&gt;=</span> <span class="n">adj_dp</span>
+            <span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span>
+                <span class="n">hl</span><span class="o">.</span><span class="n">case</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="o">~</span><span class="n">gt_expr</span><span class="o">.</span><span class="n">is_het</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">gt_expr</span><span class="o">.</span><span class="n">is_het_ref</span><span class="p">(),</span> <span class="n">ad_expr</span><span class="p">[</span><span class="n">gt_expr</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">/</span> <span class="n">dp_expr</span> <span class="o">&gt;=</span> <span class="n">adj_ab</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">default</span><span class="p">((</span><span class="n">ad_expr</span><span class="p">[</span><span class="n">gt_expr</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">/</span> <span class="n">dp_expr</span> <span class="o">&gt;=</span> <span class="n">adj_ab</span> <span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ad_expr</span><span class="p">[</span><span class="n">gt_expr</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">/</span> <span class="n">dp_expr</span> <span class="o">&gt;=</span> <span class="n">adj_ab</span> <span class="p">))</span>
+            <span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="annotate_adj"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.annotate_adj">[docs]</a><span class="k">def</span> <span class="nf">annotate_adj</span><span class="p">(</span>
+        <span class="n">mt</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">,</span>
+        <span class="n">adj_gq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">adj_dp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">adj_ab</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+        <span class="n">haploid_adj_dp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Annotate genotypes with adj criteria (assumes diploid)</span>
+<span class="sd">    Defaults correspond to gnomAD values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">annotate_entries</span><span class="p">(</span><span class="n">adj</span><span class="o">=</span><span class="n">get_adj_expr</span><span class="p">(</span><span class="n">mt</span><span class="o">.</span><span class="n">GT</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">GQ</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">DP</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">AD</span><span class="p">,</span> <span class="n">adj_gq</span><span class="p">,</span> <span class="n">adj_dp</span><span class="p">,</span> <span class="n">adj_ab</span><span class="p">,</span> <span class="n">haploid_adj_dp</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="add_variant_type"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.add_variant_type">[docs]</a><span class="k">def</span> <span class="nf">add_variant_type</span><span class="p">(</span><span class="n">alt_alleles</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">ArrayExpression</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">StructExpression</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get Struct of variant_type and n_alt_alleles from ArrayExpression of Strings (all alleles)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">alt_alleles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">alts</span> <span class="o">=</span> <span class="n">alt_alleles</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">non_star_alleles</span> <span class="o">=</span> <span class="n">hl</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span> <span class="o">!=</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">alts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hl</span><span class="o">.</span><span class="n">struct</span><span class="p">(</span><span class="n">variant_type</span><span class="o">=</span><span class="n">hl</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+        <span class="n">hl</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">is_snp</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="n">non_star_alleles</span><span class="p">),</span>
+        <span class="n">hl</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">hl</span><span class="o">.</span><span class="n">len</span><span class="p">(</span><span class="n">non_star_alleles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;multi-snv&quot;</span><span class="p">,</span> <span class="s2">&quot;snv&quot;</span><span class="p">),</span>
+        <span class="n">hl</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+            <span class="n">hl</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">is_indel</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="n">non_star_alleles</span><span class="p">),</span>
+            <span class="n">hl</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">hl</span><span class="o">.</span><span class="n">len</span><span class="p">(</span><span class="n">non_star_alleles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;multi-indel&quot;</span><span class="p">,</span> <span class="s2">&quot;indel&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;mixed&quot;</span><span class="p">)</span>
+    <span class="p">),</span> <span class="n">n_alt_alleles</span><span class="o">=</span><span class="n">hl</span><span class="o">.</span><span class="n">len</span><span class="p">(</span><span class="n">non_star_alleles</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="adjusted_sex_ploidy_expr"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.adjusted_sex_ploidy_expr">[docs]</a><span class="k">def</span> <span class="nf">adjusted_sex_ploidy_expr</span><span class="p">(</span>
+        <span class="n">locus_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">LocusExpression</span><span class="p">,</span>
+        <span class="n">gt_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">CallExpression</span><span class="p">,</span>
+        <span class="n">karyotype_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">StringExpression</span><span class="p">,</span>
+        <span class="n">xy_karyotype_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;XY&#39;</span><span class="p">,</span>
+        <span class="n">xx_karyotype_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;XX&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">CallExpression</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates an entry expression to convert males to haploid on non-PAR X/Y and females to missing on Y</span>
+
+<span class="sd">    :param locus_expr: Locus</span>
+<span class="sd">    :param gt_expr: Genotype</span>
+<span class="sd">    :param karyotype_expr: Karyotype</span>
+<span class="sd">    :param xy_karyotype_str: Male sex karyotype representation</span>
+<span class="sd">    :param xx_karyotype_str: Female sex karyotype representation</span>
+<span class="sd">    :return: Genotype adjusted for sex ploidy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">male</span> <span class="o">=</span> <span class="n">karyotype_expr</span> <span class="o">==</span> <span class="n">xy_karyotype_str</span>
+    <span class="n">female</span> <span class="o">=</span> <span class="n">karyotype_expr</span> <span class="o">==</span> <span class="n">xx_karyotype_str</span>
+    <span class="n">x_nonpar</span> <span class="o">=</span> <span class="n">locus_expr</span><span class="o">.</span><span class="n">in_x_nonpar</span><span class="p">()</span>
+    <span class="n">y_par</span> <span class="o">=</span> <span class="n">locus_expr</span><span class="o">.</span><span class="n">in_y_par</span><span class="p">()</span>
+    <span class="n">y_nonpar</span> <span class="o">=</span> <span class="n">locus_expr</span><span class="o">.</span><span class="n">in_y_nonpar</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">hl</span><span class="o">.</span><span class="n">case</span><span class="p">(</span><span class="n">missing_false</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">female</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y_par</span> <span class="o">|</span> <span class="n">y_nonpar</span><span class="p">),</span> <span class="n">hl</span><span class="o">.</span><span class="n">null</span><span class="p">(</span><span class="n">hl</span><span class="o">.</span><span class="n">tcall</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">male</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x_nonpar</span> <span class="o">|</span> <span class="n">y_nonpar</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gt_expr</span><span class="o">.</span><span class="n">is_het</span><span class="p">(),</span> <span class="n">hl</span><span class="o">.</span><span class="n">null</span><span class="p">(</span><span class="n">hl</span><span class="o">.</span><span class="n">tcall</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">male</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x_nonpar</span> <span class="o">|</span> <span class="n">y_nonpar</span><span class="p">),</span> <span class="n">hl</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">gt_expr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">phased</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">gt_expr</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="adjust_sex_ploidy"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.adjust_sex_ploidy">[docs]</a><span class="k">def</span> <span class="nf">adjust_sex_ploidy</span><span class="p">(</span><span class="n">mt</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">,</span> <span class="n">sex_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">StringExpression</span><span class="p">,</span>
+                      <span class="n">male_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="n">female_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;female&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts males to haploid on non-PAR X/Y, sets females to missing on Y</span>
+
+<span class="sd">    :param mt: Input MatrixTable</span>
+<span class="sd">    :param sex_expr: Expression pointing to sex in MT (if not male_str or female_str, no change)</span>
+<span class="sd">    :param male_str: String for males (default &#39;male&#39;)</span>
+<span class="sd">    :param female_str: String for females (default &#39;female&#39;)</span>
+<span class="sd">    :return: MatrixTable with fixed ploidy for sex chromosomes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">annotate_entries</span><span class="p">(</span>
+        <span class="n">GT</span><span class="o">=</span><span class="n">adjusted_sex_ploidy_expr</span><span class="p">(</span>
+            <span class="n">mt</span><span class="o">.</span><span class="n">locus</span><span class="p">,</span>
+            <span class="n">mt</span><span class="o">.</span><span class="n">GT</span><span class="p">,</span>
+            <span class="n">sex_expr</span><span class="p">,</span>
+            <span class="n">male_str</span><span class="p">,</span>
+            <span class="n">female_str</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_list_data"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.read_list_data">[docs]</a><span class="k">def</span> <span class="nf">read_list_data</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a file input into a python list (each line will be an element).</span>
+<span class="sd">    Supports Google storage paths and .gz compression.</span>
+
+<span class="sd">    :param input_file_path: File path</span>
+<span class="sd">    :return: List of lines</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">input_file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;gs://&#39;</span><span class="p">):</span>
+        <span class="n">hl</span><span class="o">.</span><span class="n">hadoop_copy</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">,</span> <span class="s1">&#39;file:///&#39;</span> <span class="o">+</span> <span class="n">input_file_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">))</span> <span class="k">if</span> <span class="n">input_file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;gz&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">input_file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;gz&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="liftover_using_gnomad_map"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.liftover_using_gnomad_map">[docs]</a><span class="k">def</span> <span class="nf">liftover_using_gnomad_map</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">data_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Liftover a gnomAD table using already-established liftover file. Warning: shuffles!</span>
+
+<span class="sd">    :param ht: Input Hail table</span>
+<span class="sd">    :param data_type: one of &quot;exomes&quot; or &quot;genomes&quot; which to map across</span>
+<span class="sd">    :return: Lifted over table</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">gnomad.resources.grch37.gnomad</span> <span class="kn">import</span> <span class="n">liftover</span>
+    <span class="n">lift_ht</span> <span class="o">=</span> <span class="n">liftover</span><span class="p">(</span><span class="n">data_type</span><span class="p">)</span><span class="o">.</span><span class="n">ht</span><span class="p">()</span>
+    <span class="n">ht</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">key_by</span><span class="p">(</span><span class="n">original_locus</span><span class="o">=</span><span class="n">ht</span><span class="o">.</span><span class="n">locus</span><span class="p">,</span> <span class="n">original_alleles</span><span class="o">=</span><span class="n">ht</span><span class="o">.</span><span class="n">alleles</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;locus&#39;</span><span class="p">,</span> <span class="s1">&#39;alleles&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lift_ht</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="o">**</span><span class="n">ht</span><span class="p">[(</span><span class="n">lift_ht</span><span class="o">.</span><span class="n">original_locus</span><span class="p">,</span> <span class="n">lift_ht</span><span class="o">.</span><span class="n">original_alleles</span><span class="p">)])</span><span class="o">.</span><span class="n">key_by</span><span class="p">(</span><span class="s1">&#39;locus&#39;</span><span class="p">,</span> <span class="s1">&#39;alleles&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="filter_by_frequency"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.filter_by_frequency">[docs]</a><span class="k">def</span> <span class="nf">filter_by_frequency</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">Table</span><span class="p">],</span> <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                        <span class="n">frequency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">allele_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">population</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">subpop</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">downsampling</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">keep</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">adj</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">Table</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filter MatrixTable or Table with gnomAD-format frequency data (assumed bi-allelic/split)</span>
+<span class="sd">    (i.e. Array[Struct(Array[AC], Array[AF], AN, homozygote_count, meta)])</span>
+
+<span class="sd">    At least one of frequency or allele_count is required.</span>
+
+<span class="sd">    Subpop can be specified without a population if desired.</span>
+
+<span class="sd">    :param t: Input MatrixTable or Table</span>
+<span class="sd">    :param direction: One of &quot;above&quot;, &quot;below&quot;, and &quot;equal&quot; (how to apply the filter)</span>
+<span class="sd">    :param frequency: Frequency to filter by (one of frequency or allele_count is required)</span>
+<span class="sd">    :param allele_count: Allele count to filter by (one of frequency or allele_count is required)</span>
+<span class="sd">    :param population: Population in which to filter frequency</span>
+<span class="sd">    :param subpop: Sub-population in which to filter frequency</span>
+<span class="sd">    :param downsampling: Downsampling in which to filter frequency</span>
+<span class="sd">    :param keep: Whether to keep rows passing this frequency (passed to filter_rows)</span>
+<span class="sd">    :param adj: Whether to use adj frequency</span>
+<span class="sd">    :return: Filtered MatrixTable or Table</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">frequency</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">allele_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;At least one of frequency or allele_count must be specified&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;above&#39;</span><span class="p">,</span> <span class="s1">&#39;below&#39;</span><span class="p">,</span> <span class="s1">&#39;equal&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;direction needs to be one of &quot;above&quot;, &quot;below&quot;, or &quot;equal&quot;&#39;</span><span class="p">)</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;adj&#39;</span> <span class="k">if</span> <span class="n">adj</span> <span class="k">else</span> <span class="s1">&#39;raw&#39;</span>
+    <span class="n">criteria</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">group</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">frequency</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;above&#39;</span><span class="p">:</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">AF</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">frequency</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;below&#39;</span><span class="p">:</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">AF</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">frequency</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">AF</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">frequency</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">allele_count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;above&#39;</span><span class="p">:</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">AC</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">allele_count</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;below&#39;</span><span class="p">:</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">AC</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">allele_count</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">AC</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">allele_count</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">population</span><span class="p">:</span>
+        <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pop&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">population</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">subpop</span><span class="p">:</span>
+        <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subpop&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">subpop</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># If one supplies a subpop but not a population, this will ensure this gets it right</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">population</span><span class="p">:</span> <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">downsampling</span><span class="p">:</span>
+        <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;downsampling&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">downsampling</span><span class="p">))</span>
+        <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">population</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pop&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;global&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">subpop</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;No downsampling data for subpopulations implemented&#39;</span><span class="p">)</span>
+    <span class="n">criteria</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">combine_functions</span><span class="p">(</span><span class="n">func_list</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">cond</span> <span class="o">=</span> <span class="n">func_list</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">func_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">cond</span> <span class="o">&amp;=</span> <span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cond</span>
+
+    <span class="n">filt</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">combine_functions</span><span class="p">(</span><span class="n">criteria</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">criteria</span> <span class="o">=</span> <span class="n">hl</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">filt</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">freq</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">filter_rows</span><span class="p">(</span><span class="n">criteria</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="n">keep</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">MatrixTable</span><span class="p">)</span> <span class="k">else</span> <span class="n">t</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">criteria</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="n">keep</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pretty_print_runs"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.pretty_print_runs">[docs]</a><span class="k">def</span> <span class="nf">pretty_print_runs</span><span class="p">(</span><span class="n">runs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">label_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;rf_label&#39;</span><span class="p">,</span> <span class="n">prediction_col_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;rf_prediction&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prints the information for the RF runs loaded from the json file storing the RF run hashes -&gt; info</span>
+
+<span class="sd">    :param runs: Dictionary containing JSON input loaded from RF run file</span>
+<span class="sd">    :param label_col: Name of the RF label column</span>
+<span class="sd">    :param prediction_col_name: Name of the RF prediction column</span>
+<span class="sd">    :return: Nothing -- only prints information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">run_hash</span><span class="p">,</span> <span class="n">run_data</span> <span class="ow">in</span> <span class="n">runs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== </span><span class="si">{run_hash}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+        <span class="n">testing_results</span> <span class="o">=</span> <span class="n">run_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;test_results&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;test_results&#39;</span> <span class="ow">in</span> <span class="n">run_data</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="c1"># print(testing_results)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">run_data</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">testing_results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Print results</span>
+            <span class="n">res_pd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">testing_results</span><span class="p">)</span>
+            <span class="n">res_pd</span> <span class="o">=</span> <span class="n">res_pd</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">label_col</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">prediction_col_name</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Testing results:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pformat</span><span class="p">(</span><span class="n">res_pd</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="add_rank"><a class="viewcode-back" href="../../../api_reference/utils/gnomad_functions.html#gnomad.utils.gnomad_functions.add_rank">[docs]</a><span class="k">def</span> <span class="nf">add_rank</span><span class="p">(</span><span class="n">ht</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">Table</span><span class="p">,</span>
+             <span class="n">score_expr</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">NumericExpression</span><span class="p">,</span>
+             <span class="n">subrank_expr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">expr</span><span class="o">.</span><span class="n">BooleanExpression</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hl</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds rank based on the `score_expr`. Rank is added for snvs and indels separately.</span>
+<span class="sd">    If one or more `subrank_expr` are provided, then subrank is added based on all sites for which the boolean expression is true.</span>
+
+<span class="sd">    In addition, variant counts (snv, indel separately) is added as a global (`rank_variant_counts`).</span>
+
+<span class="sd">    :param ht: input Hail Table containing variants (with QC annotations) to be ranked</span>
+<span class="sd">    :param score_expr: the Table annotation by which ranking should be scored</span>
+<span class="sd">    :param subrank_expr: Any subranking to be added in the form name_of_subrank: subrank_filtering_expr</span>
+<span class="sd">    :return: Table with rankings added</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">key</span>
+    <span class="k">if</span> <span class="n">subrank_expr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">subrank_expr</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">temp_expr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_score&#39;</span><span class="p">:</span> <span class="n">score_expr</span><span class="p">}</span>
+    <span class="n">temp_expr</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">expr</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">subrank_expr</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+    <span class="n">rank_ht</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">**</span><span class="n">temp_expr</span><span class="p">,</span> <span class="n">is_snv</span><span class="o">=</span><span class="n">hl</span><span class="o">.</span><span class="n">is_snp</span><span class="p">(</span><span class="n">ht</span><span class="o">.</span><span class="n">alleles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ht</span><span class="o">.</span><span class="n">alleles</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="n">rank_ht</span> <span class="o">=</span> <span class="n">rank_ht</span><span class="o">.</span><span class="n">key_by</span><span class="p">(</span><span class="s1">&#39;_score&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+    <span class="n">scan_expr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">rank_ht</span><span class="o">.</span><span class="n">is_snv</span><span class="p">,</span> <span class="n">hl</span><span class="o">.</span><span class="n">scan</span><span class="o">.</span><span class="n">count_where</span><span class="p">(</span><span class="n">rank_ht</span><span class="o">.</span><span class="n">is_snv</span><span class="p">),</span> <span class="n">hl</span><span class="o">.</span><span class="n">scan</span><span class="o">.</span><span class="n">count_where</span><span class="p">(</span><span class="o">~</span><span class="n">rank_ht</span><span class="o">.</span><span class="n">is_snv</span><span class="p">))}</span>
+    <span class="n">scan_expr</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="n">hl</span><span class="o">.</span><span class="n">or_missing</span><span class="p">(</span><span class="n">rank_ht</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">],</span>
+                                          <span class="n">hl</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">rank_ht</span><span class="o">.</span><span class="n">is_snv</span><span class="p">,</span>
+                                                  <span class="n">hl</span><span class="o">.</span><span class="n">scan</span><span class="o">.</span><span class="n">count_where</span><span class="p">(</span><span class="n">rank_ht</span><span class="o">.</span><span class="n">is_snv</span> <span class="o">&amp;</span> <span class="n">rank_ht</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">]),</span>
+                                                  <span class="n">hl</span><span class="o">.</span><span class="n">scan</span><span class="o">.</span><span class="n">count_where</span><span class="p">(</span><span class="o">~</span><span class="n">rank_ht</span><span class="o">.</span><span class="n">is_snv</span> <span class="o">&amp;</span> <span class="n">rank_ht</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">])))</span>
+                      <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">subrank_expr</span><span class="p">})</span>
+    <span class="n">rank_ht</span> <span class="o">=</span> <span class="n">rank_ht</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="o">**</span><span class="n">scan_expr</span><span class="p">)</span>
+
+    <span class="n">rank_ht</span> <span class="o">=</span> <span class="n">rank_ht</span><span class="o">.</span><span class="n">key_by</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>
+    <span class="n">rank_ht</span> <span class="o">=</span> <span class="n">rank_ht</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">scan_expr</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">ht</span> <span class="o">=</span> <span class="n">ht</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="o">**</span><span class="n">rank_ht</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">ht</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
